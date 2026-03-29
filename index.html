@@ -3,6 +3,9 @@ bash
 cat << 'PYEOF' > /home/claude/crm_v3.html
 <!DOCTYPE html>
 <html lang="en">
+<link rel="manifest" href="/northbridge-crm/manifest.json">
+<meta name="theme-color" content="#1d4ed8">
+<meta name="apple-mobile-web-app-capable" content="yes">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
@@ -607,6 +610,7 @@ $f("addBtn").addEventListener("click",function(){
 
 checkAuth();
 </script>
+<script>if('serviceWorker' in navigator){navigator.serviceWorker.register('/northbridge-crm/sw.js');}</script>
 </body>
 </html>
 PYEOF
