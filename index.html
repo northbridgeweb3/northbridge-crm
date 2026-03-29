@@ -10,6 +10,7 @@ cat << 'PYEOF' > /home/claude/crm_v3.html
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Northbridge CRM</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f0f2f5;color:#111;font-size:14px}
@@ -608,6 +609,23 @@ $f("addBtn").addEventListener("click",function(){
   if(el)el.addEventListener("click",function(){go(t);});
 });
 
+var SURL="https://wwntkovzcjoifosceats.supabase.co";
+var SKEY="sb_publishable_DvoYwjHFA-G8pYWbzP5GQA_M2S-tQz2";
+var sb=supabase.createClient(SURL,SKEY);
+async function loadAll(){
+  var pr=await sb.from("projects").select("*");
+  var ir=await sb.from("influencers").select("*");
+  var cr=await sb.from("campaigns").select("*");
+  if(pr.data&&pr.data.length>0){projects=pr.data;}
+  else{projects=JSON.parse(JSON.stringify(SEED));for(var i=0;i<projects.length;i++){await sb.from("projects").upsert(projects[i]);}}
+  influencers=ir.data||[];
+  campaigns=cr.data||[];
+  rD();
+}
+async function upsertP(p){await sb.from("projects").upsert(p);}
+async function upsertI(i){await sb.from("influencers").upsert(i);}
+async function upsertC(c){await sb.from("campaigns").upsert(c);}
+async function deleteRec(t,id){await sb.from(t).delete().eq("id",id);}
 checkAuth();
 </script>
 <script>if('serviceWorker' in navigator){navigator.serviceWorker.register('/northbridge-crm/sw.js');}</script>
