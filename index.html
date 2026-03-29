@@ -1,128 +1,628 @@
 bash
 
-SUPABASE_URL="https://wwntkovzcjoifosceats.supabase.co"
-SUPABASE_KEY="sb_publishable_DvoYwjHFA-G8pYWbzP5GQA_M2S-tQz2"
+cat << 'PYEOF' > /home/claude/crm_v3.html
+<!DOCTYPE html>
+<html lang="en">
+<link rel="manifest" href="/northbridge-crm/manifest.json">
+<meta name="theme-color" content="#1d4ed8">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Northbridge CRM</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f0f2f5;color:#111;font-size:14px}
+#gate{position:fixed;inset:0;background:#f0f2f5;display:flex;align-items:center;justify-content:center;z-index:999}
+.gbox{background:#fff;border:1px solid #e5e7eb;border-radius:16px;padding:40px 36px;max-width:340px;width:100%;text-align:center;box-shadow:0 4px 24px rgba(0,0,0,.08)}
+.gmark{width:44px;height:44px;border-radius:10px;background:#1d4ed8;color:#fff;font-size:16px;font-weight:700;display:flex;align-items:center;justify-content:center;margin:0 auto 16px}
+.gtitle{font-size:20px;font-weight:700;margin-bottom:4px}
+.gsub{font-size:12px;color:#6b7280;margin-bottom:24px}
+.ginput{width:100%;padding:10px 12px;border:1px solid #d1d5db;border-radius:8px;font-size:13px;outline:none;margin-bottom:10px;font-family:inherit}
+.ginput:focus{border-color:#1d4ed8}
+.gbtn{width:100%;padding:10px;border:none;border-radius:8px;background:#1d4ed8;color:#fff;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit}
+.gbtn:hover{background:#1e40af}
+.gerr{font-size:12px;color:#dc2626;margin-top:8px;display:none;background:#fef2f2;padding:6px 10px;border-radius:6px;border:1px solid #fecaca}
+#app{display:none;flex-direction:column;min-height:100vh}
+.top{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;background:#fff;border-bottom:1px solid #e5e7eb;position:sticky;top:0;z-index:50}
+.logo{display:flex;align-items:center;gap:8px}
+.lm{width:26px;height:26px;border-radius:6px;background:#1d4ed8;color:#fff;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center}
+.ln{font-size:13px;font-weight:600}
+.ls{font-size:10px;color:#9ca3af}
+.tbr{display:flex;gap:6px}
+.btn{padding:5px 11px;border:1px solid #d1d5db;border-radius:7px;background:#fff;font-size:11px;font-weight:500;cursor:pointer;color:#374151;font-family:inherit;transition:all .15s}
+.btn:hover{background:#f9fafb}
+.btnp{background:#1d4ed8;border-color:#1d4ed8;color:#fff}
+.btnp:hover{background:#1e40af}
+.btnsm{padding:4px 9px;font-size:11px}
+.btnd{border-color:#fca5a5;color:#dc2626}
+.btnd:hover{background:#fef2f2}
+.tabs{display:flex;padding:0 16px;background:#fff;border-bottom:1px solid #e5e7eb;overflow-x:auto}
+.tab{padding:8px 12px;font-size:12px;font-weight:500;color:#6b7280;cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;flex-shrink:0}
+.tab.on{color:#1d4ed8;border-bottom-color:#1d4ed8}
+.content{flex:1;padding:14px;background:#f0f2f5}
+.view{display:none}.view.on{display:block}
+.sh{font-size:10px;font-weight:600;color:#6b7280;text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px}
+.mg{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}
+@media(max-width:480px){.mg{grid-template-columns:repeat(2,1fr)}}
+.mc{background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:12px 14px}
+.ml{font-size:10px;color:#6b7280;margin-bottom:4px;text-transform:uppercase;letter-spacing:.04em}
+.mv{font-size:22px;font-weight:700;line-height:1}
+.ms{font-size:10px;color:#9ca3af;margin-top:3px}
+.pg{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:14px}
+@media(max-width:480px){.pg{grid-template-columns:repeat(2,1fr)}}
+.pi{background:#fff;border:1px solid #e5e7eb;border-radius:8px;padding:8px;text-align:center}
+.pdot{width:6px;height:6px;border-radius:50%;margin:0 auto 4px}
+.pc{font-size:17px;font-weight:600}
+.pl{font-size:9px;color:#9ca3af;margin-top:1px}
+.card{background:#fff;border:1px solid #e5e7eb;border-radius:10px;overflow:hidden;margin-bottom:12px}
+.toolbar{display:flex;gap:6px;padding:8px 12px;border-bottom:1px solid #e5e7eb;flex-wrap:wrap;align-items:center;background:#f9fafb}
+.srch{flex:1;min-width:110px;padding:5px 8px;border:1px solid #d1d5db;border-radius:7px;background:#fff;color:#111;font-size:12px;outline:none;font-family:inherit}
+.srch:focus{border-color:#1d4ed8}
+.fsel{padding:5px 7px;border:1px solid #d1d5db;border-radius:7px;background:#fff;color:#374151;font-size:11px;outline:none;cursor:pointer;font-family:inherit}
+.cnt{font-size:11px;color:#9ca3af;margin-left:auto}
+table{width:100%;border-collapse:collapse}
+thead{background:#f9fafb}
+th{padding:7px 11px;text-align:left;font-size:10px;font-weight:600;color:#6b7280;text-transform:uppercase;letter-spacing:.05em;border-bottom:1px solid #e5e7eb;white-space:nowrap}
+td{padding:8px 11px;border-bottom:1px solid #f3f4f6;font-size:12px;vertical-align:middle}
+tbody tr:last-child td{border-bottom:none}
+tbody tr{cursor:pointer}
+tbody tr:hover td{background:#f9fafb}
+.pn{font-size:12px;font-weight:500}
+.ps{font-size:10px;color:#9ca3af;margin-top:1px}
+.tag{display:inline-flex;align-items:center;padding:2px 7px;border-radius:20px;font-size:10px;font-weight:500;white-space:nowrap}
+.mbg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:200;padding:12px;overflow-y:auto;align-items:flex-start;justify-content:center;padding-top:20px}
+.mbg.open{display:flex}
+.modal{background:#fff;border-radius:14px;width:100%;max-width:540px;max-height:90vh;display:flex;flex-direction:column;border:1px solid #e5e7eb;box-shadow:0 10px 40px rgba(0,0,0,.12)}
+.mh{padding:12px 16px;border-bottom:1px solid #e5e7eb;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.mt{font-size:14px;font-weight:600}
+.mb{padding:16px;overflow-y:auto;flex:1}
+.mf{padding:10px 16px;border-top:1px solid #e5e7eb;display:flex;gap:6px;justify-content:flex-end;background:#f9fafb;flex-shrink:0}
+.f2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+@media(max-width:460px){.f2{grid-template-columns:1fr}}
+.ff{grid-column:1/-1}
+.fs{font-size:10px;font-weight:700;color:#1d4ed8;text-transform:uppercase;letter-spacing:.07em;padding:10px 0 7px;border-bottom:1px solid #e5e7eb;margin-bottom:8px;grid-column:1/-1}
+.fg{display:flex;flex-direction:column;gap:3px;margin-bottom:8px}
+.fl{font-size:10px;font-weight:600;color:#6b7280;text-transform:uppercase;letter-spacing:.04em}
+.fi{padding:6px 8px;border:1px solid #d1d5db;border-radius:7px;background:#f9fafb;color:#111;font-size:12px;outline:none;font-family:inherit;width:100%}
+.fi:focus{border-color:#1d4ed8;background:#fff}
+.fta{resize:vertical;min-height:60px}
+.sb{display:flex;gap:16px;padding:8px 12px;border-top:1px solid #e5e7eb;font-size:11px;flex-wrap:wrap;background:#f9fafb}
+.toast{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);background:#111;color:#fff;padding:8px 14px;border-radius:8px;font-size:12px;font-weight:500;z-index:300;display:none;white-space:nowrap}
+.empty{text-align:center;padding:24px;color:#9ca3af;font-size:12px}
+.rb{display:inline-flex;align-items:center;padding:2px 6px;border-radius:4px;font-size:9px;background:#fef3c7;color:#92400e;border:1px solid #fde68a}
+.tb{background:#f9fafb;border:1px solid #e5e7eb;border-radius:8px;padding:12px;font-size:12px;line-height:1.7;color:#374151;white-space:pre-wrap;margin-top:6px}
+@media(max-width:560px){th:nth-child(n+5),td:nth-child(n+5){display:none}}
+</style>
+</head>
+<body>
 
-python3 << PYEOF
-import re
+<div id="gate">
+  <div class="gbox">
+    <div class="gmark">NB</div>
+    <div class="gtitle">Northbridge CRM</div>
+    <div class="gsub">Web3 Outreach &amp; Campaign Tracker</div>
+    <input class="ginput" type="password" id="pwd" placeholder="Access password">
+    <button class="gbtn" id="loginBtn">Sign In</button>
+    <div class="gerr" id="gerr">Incorrect password. Try again.</div>
+  </div>
+</div>
 
-html = open('/home/claude/crm_v3.html').read()
+<div id="app">
+  <div class="top">
+    <div class="logo">
+      <div class="lm">NB</div>
+      <div><div class="ln">Northbridge</div><div class="ls">CRM v3</div></div>
+    </div>
+    <div class="tbr">
+      <button class="btn btnsm" id="expBtn">Export</button>
+      <button class="btn btnp btnsm" id="addBtn">+ Add</button>
+      <button class="btn btnsm" id="outBtn">Sign Out</button>
+    </div>
+  </div>
+  <div class="tabs">
+    <div class="tab on" id="tab-dash">Dashboard</div>
+    <div class="tab" id="tab-proj">Projects</div>
+    <div class="tab" id="tab-inf">KOL / Influencer</div>
+    <div class="tab" id="tab-camp">Campaigns</div>
+    <div class="tab" id="tab-fin">Financial</div>
+    <div class="tab" id="tab-out">Outreach</div>
+  </div>
+  <div class="content">
+    <div class="view on" id="view-dash"></div>
+    <div class="view" id="view-proj"></div>
+    <div class="view" id="view-inf"></div>
+    <div class="view" id="view-camp"></div>
+    <div class="view" id="view-fin"></div>
+    <div class="view" id="view-out"></div>
+  </div>
+</div>
 
-# Add Supabase script in head
-supabase_head = '''<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>'''
-html = html.replace('<style>', supabase_head + '\n<style>', 1)
+<div class="mbg" id="modal">
+  <div class="modal">
+    <div class="mh"><div class="mt" id="mtitle"></div><button class="btn btnsm" id="closeBtn">x</button></div>
+    <div class="mb" id="mbody"></div>
+    <div class="mf" id="mfoot"></div>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
 
-# Replace storage functions with Supabase versions
-old_storage = '''function ld(k){try{var r=localStorage.getItem(k);return r?JSON.parse(r):null;}catch(e){return null;}}
+<script>
+var PASS = "NB2026";
+var AK = "nb_auth_v3";
+var SK_P = "nb_p7", SK_I = "nb_i5", SK_C = "nb_c5";
+
+var ST_P = [
+  {v:"",l:"--",c:"#9ca3af"},
+  {v:"Contacted",l:"Contacted",c:"#2563eb"},
+  {v:"No Answer",l:"No Answer",c:"#9ca3af"},
+  {v:"Awaiting Reply",l:"Awaiting Reply",c:"#d97706"},
+  {v:"Negative",l:"Negative",c:"#dc2626"},
+  {v:"In Discussion",l:"In Discussion",c:"#7c3aed"},
+  {v:"Deal Closed",l:"Deal Closed",c:"#059669"}
+];
+var ST_C = [
+  {v:"Proposal",l:"Proposal",c:"#d97706"},
+  {v:"Approved",l:"Approved",c:"#2563eb"},
+  {v:"In Production",l:"In Production",c:"#7c3aed"},
+  {v:"Live",l:"Live",c:"#059669"},
+  {v:"Completed",l:"Completed",c:"#6b7280"},
+  {v:"Cancelled",l:"Cancelled",c:"#dc2626"}
+];
+var PLATS = ["X / Twitter","YouTube","Telegram","Instagram","TikTok","Discord","Other"];
+var CATS = ["L2 / Infrastructure","DeFi / DEX","Stablecoin / Payment","AI + Blockchain","Bitcoin L2","DePIN","Privacy","SocialFi","Enterprise","Other"];
+var PRIS = ["High","Medium","Low"];
+
+var SEED = [
+  {id:"p1",name:"Startale Group",cat:"L2 / Infrastructure",tw:"@startale_com",web:"startale.com",fund:"$63M",stage:"Series A",inv:"SBI Group, Sony",chain:"Ethereum L2",pri:"High",ld:"Mar 2026",ceo:"",ceoC:"",mk:"",mkC:"",st:"",notes:"",ilgili:"",rem:""},
+  {id:"p2",name:"Payy Network",cat:"Privacy",tw:"@payy_link",web:"payy.network",fund:"$6M",stage:"Seed",inv:"FirstMark, Robot Ventures",chain:"ZK L2",pri:"High",ld:"Feb 2026",ceo:"",ceoC:"",mk:"",mkC:"",st:"",notes:"",ilgili:"",rem:""},
+  {id:"p3",name:"Ironlight",cat:"DeFi / DEX",tw:"@ironlight_xyz",web:"ironlight.xyz",fund:"$21M",stage:"Series A",inv:"Major VC",chain:"EVM",pri:"High",ld:"Mar 2026",ceo:"",ceoC:"",mk:"",mkC:"",st:"",notes:"",ilgili:"",rem:""},
+  {id:"p4",name:"Paradex (DIME)",cat:"DeFi / DEX",tw:"@tradeparadex",web:"paradex.trade",fund:"Large",stage:"Pre-TGE",inv:"a16z, Paradigm, Coinbase",chain:"Starknet",pri:"High",ld:"Mar 2026",ceo:"",ceoC:"",mk:"",mkC:"",st:"",notes:"",ilgili:"",rem:""},
+  {id:"p5",name:"Katana (KAT)",cat:"DeFi / DEX",tw:"@katana_gg",web:"katana.network",fund:"Large",stage:"TGE Done",inv:"Polygon, GSR",chain:"Polygon",pri:"High",ld:"Mar 18 2026",ceo:"",ceoC:"",mk:"",mkC:"",st:"",notes:"",ilgili:"",rem:""},
+  {id:"p6",name:"Backpack",cat:"L2 / Infrastructure",tw:"@backpackapp",web:"backpack.exchange",fund:"Large",stage:"Pre-Token",inv:"Coinbase Ventures",chain:"Solana/EVM",pri:"High",ld:"Mar 2026",ceo:"",ceoC:"",mk:"",mkC:"",st:"",notes:"",ilgili:"",rem:""},
+  {id:"p7",name:"Utexo",cat:"Stablecoin / Payment",tw:"@utexo_io",web:"utexo.io",fund:"$7.5M",stage:"Seed",inv:"Tether, Franklin Templeton",chain:"Bitcoin",pri:"High",ld:"Q1 2026",ceo:"",ceoC:"",mk:"",mkC:"",st:"",notes:"",ilgili:"",rem:""},
+  {id:"p8",name:"Rayls",cat:"Enterprise",tw:"@rayls_xyz",web:"parfin.io/rayls",fund:"Corporate",stage:"Project",inv:"JPMorgan, Santander",chain:"EVM L1",pri:"High",ld:"Q1 2026",ceo:"",ceoC:"",mk:"",mkC:"",st:"",notes:"",ilgili:"",rem:""},
+  {id:"p9",name:"Eureka Labs",cat:"L2 / Infrastructure",tw:"@EurekaBuilderXYZ",web:"eurekabs.xyz",fund:"$6.7M",stage:"Seed",inv:"Spark Capital",chain:"Ethereum",pri:"Medium",ld:"Mar 2026",ceo:"",ceoC:"",mk:"",mkC:"",st:"",notes:"",ilgili:"",rem:""},
+  {id:"p10",name:"Kairos Labs",cat:"DeFi / DEX",tw:"@KairosLabs_xyz",web:"kairos.finance",fund:"$2.4M",stage:"Seed",inv:"VCs",chain:"Ethereum",pri:"Medium",ld:"Mar 2026",ceo:"",ceoC:"",mk:"",mkC:"",st:"",notes:"",ilgili:"",rem:""},
+  {id:"p11",name:"Watch.fun",cat:"SocialFi",tw:"@watchfun_xyz",web:"watch.fun",fund:"$8.6M",stage:"Funding",inv:"5 VC",chain:"EVM",pri:"Medium",ld:"Mar 2026",ceo:"",ceoC:"",mk:"",mkC:"",st:"",notes:"",ilgili:"",rem:""},
+  {id:"p12",name:"Unitas Labs",cat:"Stablecoin / Payment",tw:"@unitaslabs",web:"unitas.finance",fund:"$13.3M",stage:"Seed",inv:"Amber, SevenX",chain:"EVM",pri:"Medium",ld:"Mar 2026",ceo:"",ceoC:"",mk:"",mkC:"",st:"",notes:"",ilgili:"",rem:""},
+  {id:"p13",name:"VeryAI",cat:"AI + Blockchain",tw:"@veryai_xyz",web:"veryai.xyz",fund:"$10M",stage:"Seed",inv:"10+ VC",chain:"Multi",pri:"Medium",ld:"Mar 2026",ceo:"",ceoC:"",mk:"",mkC:"",st:"",notes:"",ilgili:"",rem:""},
+  {id:"p14",name:"OP NET",cat:"Bitcoin L2",tw:"@opnetwork_io",web:"opnet.org",fund:"$5M",stage:"Funding",inv:"5 VC",chain:"Bitcoin",pri:"Medium",ld:"Mar 2026",ceo:"",ceoC:"",mk:"",mkC:"",st:"",notes:"",ilgili:"",rem:""},
+  {id:"p15",name:"Tazapay",cat:"Stablecoin / Payment",tw:"@tazapay",web:"tazapay.com",fund:"$36M",stage:"Series B",inv:"Tier 1 VC",chain:"Multi",pri:"Medium",ld:"Mar 2026",ceo:"",ceoC:"",mk:"",mkC:"",st:"",notes:"",ilgili:"",rem:""},
+  {id:"p16",name:"Derivio (DRV)",cat:"DeFi / DEX",tw:"@Derivio_xyz",web:"derivio.xyz",fund:"$6M",stage:"Total",inv:"Binance Labs",chain:"Multi",pri:"Medium",ld:"Mar 2026",ceo:"",ceoC:"",mk:"",mkC:"",st:"",notes:"",ilgili:"",rem:""},
+  {id:"p17",name:"YOM Network",cat:"DePIN",tw:"@yomnetwork",web:"yomnetwork.com",fund:"$3M+",stage:"Pre-TGE",inv:"--",chain:"Solana",pri:"Medium",ld:"Mar 25 2026",ceo:"",ceoC:"",mk:"",mkC:"",st:"",notes:"",ilgili:"",rem:""},
+  {id:"p18",name:"TransFi",cat:"Stablecoin / Payment",tw:"@transfi_xyz",web:"transfi.com",fund:"$14.2M",stage:"Series A",inv:"Tier 1 VC",chain:"Multi",pri:"Medium",ld:"Mar 2026",ceo:"",ceoC:"",mk:"",mkC:"",st:"",notes:"",ilgili:"",rem:""},
+  {id:"p19",name:"Kled AI",cat:"AI + Blockchain",tw:"@kled_ai",web:"kled.ai",fund:"$3.5M",stage:"Funding",inv:"7 VC",chain:"EVM",pri:"Low",ld:"Mar 2026",ceo:"",ceoC:"",mk:"",mkC:"",st:"",notes:"",ilgili:"",rem:""},
+  {id:"p20",name:"Cryptio",cat:"Enterprise",tw:"@cryptio",web:"cryptio.co",fund:"$45M",stage:"Series B",inv:"Blockchain Capital",chain:"Multi",pri:"Low",ld:"Mar 2026",ceo:"",ceoC:"",mk:"",mkC:"",st:"",notes:"",ilgili:"",rem:""}
+];
+
+function ld(k){try{var r=localStorage.getItem(k);return r?JSON.parse(r):null;}catch(e){return null;}}
 function sv(k,d){try{localStorage.setItem(k,JSON.stringify(d));}catch(e){}}
 function saveAll(){sv(SK_P,projects);sv(SK_I,influencers);sv(SK_C,campaigns);}
 
 var projects = ld(SK_P) || JSON.parse(JSON.stringify(SEED));
 var influencers = ld(SK_I) || [];
 var campaigns = ld(SK_C) || [];
-var CUR = "dash", EID = null;'''
-
-new_storage = '''var SURL = "https://wwntkovzcjoifosceats.supabase.co";
-var SKEY = "sb_publishable_DvoYwjHFA-G8pYWbzP5GQA_M2S-tQz2";
-var sb = supabase.createClient(SURL, SKEY);
-
-var projects = [];
-var influencers = [];
-var campaigns = [];
 var CUR = "dash", EID = null;
 
-async function loadAll(){
-  var pr = await sb.from("projects").select("*");
-  var ir = await sb.from("influencers").select("*");
-  var cr = await sb.from("campaigns").select("*");
-  if(pr.data && pr.data.length > 0){
-    projects = pr.data;
-  } else {
-    projects = JSON.parse(JSON.stringify(SEED));
-    for(var i=0;i<projects.length;i++){
-      await sb.from("projects").upsert(projects[i]);
-    }
+function $f(id){return document.getElementById(id);}
+function sc(v,L){var s=(L||ST_P).find(function(x){return x.v===v;});return s?s.c:"#9ca3af";}
+function bdg(v,L){var c=sc(v,L);var s=(L||ST_P).find(function(x){return x.v===v;});var l=s?s.l:(v||"--");return'<span class="tag" style="background:'+c+'18;color:'+c+';border:1px solid '+c+'30">'+l+'</span>';}
+function priB(p){var c=p==="High"?"#dc2626":p==="Medium"?"#d97706":"#059669";return'<span class="tag" style="background:'+c+'18;color:'+c+';border:1px solid '+c+'30">'+p+'</span>';}
+function mn(n){var x=parseFloat(n)||0;return x===0?"--":"$"+x.toLocaleString();}
+function ph(r,c){var rv=parseFloat(r)||0,cv=parseFloat(c)||0,p=rv-cv;if(rv===0&&cv===0)return'<span style="color:#9ca3af">--</span>';return'<span style="color:'+(p>=0?"#059669":"#dc2626")+'">'+(p>=0?"+":"")+mn(p)+'</span>';}
+function pnm(id){var p=projects.find(function(x){return x.id===id;});return p?p.name:"?";}
+function inm(id){var i=influencers.find(function(x){return x.id===id;});return i?i.name:"?";}
+function ipl(id){var i=influencers.find(function(x){return x.id===id;});return i?i.platform:"";}
+function hasR(p){if(!p.rem)return false;try{var d=new Date(p.rem),n=new Date();return d<=new Date(n.getFullYear(),n.getMonth(),n.getDate()+3);}catch(e){return false;}}
+function toast(m){var el=$f("toast");el.textContent=m;el.style.display="block";setTimeout(function(){el.style.display="none";},2200);}
+
+function go(t){
+  CUR=t;
+  ["dash","proj","inf","camp","fin","out"].forEach(function(x){
+    var v=$f("view-"+x);if(v)v.className="view"+(x===t?" on":"");
+    var tb=$f("tab-"+x);if(tb)tb.className="tab"+(x===t?" on":"");
+  });
+  var L={proj:"+ Project",inf:"+ KOL",camp:"+ Campaign"};
+  var ab=$f("addBtn");
+  if(L[t]){ab.style.display="";ab.textContent=L[t];}else{ab.style.display="none";}
+  if(t==="dash")rD();else if(t==="proj")rP();else if(t==="inf")rI();else if(t==="camp")rC();else if(t==="fin")rF();else rO();
+}
+
+function rD(){
+  var d=projects,c=campaigns;
+  var actC=c.filter(function(x){return x.st==="Live"||x.st==="In Production"||x.st==="Approved";}).length;
+  var rem=d.filter(function(p){return hasR(p)&&p.st!=="Deal Closed";});
+  var mh=[
+    {l:"Total Projects",v:d.length,c:"#111",s:"CRM records"},
+    {l:"KOL Network",v:influencers.length,c:"#7c3aed",s:"Influencers"},
+    {l:"Active Campaigns",v:actC,c:"#059669",s:"In progress"},
+    {l:"Deals Closed",v:d.filter(function(x){return x.st==="Deal Closed";}).length,c:"#059669",s:"Agreements"},
+    {l:"In Discussion",v:d.filter(function(x){return x.st==="In Discussion";}).length,c:"#2563eb",s:"Active"},
+    {l:"High Priority",v:d.filter(function(x){return x.pri==="High";}).length,c:"#dc2626",s:"Follow up"}
+  ].map(function(m){return'<div class="mc"><div class="ml">'+m.l+'</div><div class="mv" style="color:'+m.c+'">'+m.v+'</div><div class="ms">'+m.s+'</div></div>';}).join("");
+  var pipe=ST_P.filter(function(s){return s.v;}).map(function(s){
+    var cnt=d.filter(function(p){return p.st===s.v;}).length;
+    return'<div class="pi"><div class="pdot" style="background:'+s.c+'"></div><div class="pc">'+cnt+'</div><div class="pl">'+s.l+'</div></div>';
+  }).join("");
+  var cst=ST_C.map(function(s){
+    var cnt=c.filter(function(x){return x.st===s.v;}).length;
+    return'<div class="pi"><div class="pdot" style="background:'+s.c+'"></div><div class="pc">'+cnt+'</div><div class="pl">'+s.l+'</div></div>';
+  }).join("");
+  var remH="";
+  if(rem.length){
+    var rr=rem.map(function(p){return'<tr onclick="oPM(\''+p.id+'\')" style="cursor:pointer"><td>'+p.name+'</td><td>'+bdg(p.st,ST_P)+'</td><td><span class="rb">'+p.rem+'</span></td></tr>';}).join("");
+    remH='<div class="sh" style="margin-top:4px">Reminders ('+rem.length+')</div><div class="card"><div style="overflow-x:auto"><table><thead><tr><th>Project</th><th>Status</th><th>Date</th></tr></thead><tbody>'+rr+'</tbody></table></div></div>';
   }
-  influencers = ir.data || [];
-  campaigns = cr.data || [];
-  rD();
+  $f("view-dash").innerHTML='<div class="sh">Overview</div><div class="mg">'+mh+'</div>'+remH+'<div class="sh">Project Pipeline</div><div class="pg">'+pipe+'</div><div class="sh">Campaign Pipeline</div><div class="pg" style="grid-template-columns:repeat(3,1fr)">'+cst+'</div>';
 }
 
-async function saveAll(){
-  // Save is done per item in save functions
+var pq="",pfs="",pfp="";
+function rP(){
+  var fl=projects.filter(function(p){
+    var q=pq.toLowerCase();
+    return(!q||(p.name+p.cat+p.tw+p.ceo+p.mk).toLowerCase().includes(q))&&(!pfs||p.st===pfs)&&(!pfp||p.pri===pfp);
+  });
+  var ss=ST_P.map(function(s){return'<option value="'+s.v+'"'+(pfs===s.v?" selected":"")+'>'+( s.v||"All Statuses")+'</option>';}).join("");
+  var sp='<option value="">All Priorities</option>'+PRIS.map(function(p){return'<option value="'+p+'"'+(pfp===p?" selected":"")+'>'+p+'</option>';}).join("");
+  var rows=fl.map(function(p,i){
+    var r=hasR(p)?'<span class="rb" style="margin-left:3px;font-size:9px">!</span>':'';
+    return'<tr onclick="oPM(\''+p.id+'\')">'
+      +'<td style="color:#9ca3af;font-size:10px">'+(i+1)+'</td>'
+      +'<td><div class="pn">'+p.name+r+'</div><div class="ps">'+p.tw+'</div></td>'
+      +'<td style="color:#6b7280;font-size:11px">'+p.cat+'</td>'
+      +'<td style="color:'+(p.ceo?"#111":"#9ca3af")+'">'+( p.ceo||"--")+'</td>'
+      +'<td>'+( p.mk?'<span style="font-size:11px">'+p.mk+'</span>':'<span style="color:#9ca3af">--</span>')+'</td>'
+      +'<td>'+bdg(p.st,ST_P)+'</td>'
+      +'<td>'+priB(p.pri)+'</td>'
+    +'</tr>';
+  }).join("");
+  $f("view-proj").innerHTML='<div class="card"><div class="toolbar">'
+    +'<input class="srch" placeholder="Project, CEO, Twitter..." value="'+pq+'" oninput="pq=this.value;rP()">'
+    +'<select class="fsel" onchange="pfs=this.value;rP()">'+ss+'</select>'
+    +'<select class="fsel" onchange="pfp=this.value;rP()">'+sp+'</select>'
+    +'<button class="btn btnsm" onclick="impC(\'proj\')">Import CSV</button>'
+    +'<span class="cnt">'+fl.length+'</span></div>'
+    +'<div style="overflow-x:auto"><table><thead><tr><th>#</th><th>Project</th><th>Category</th><th>CEO</th><th>Marketing</th><th>Status</th><th>Priority</th></tr></thead>'
+    +'<tbody>'+( rows||'<tr><td colspan="7" class="empty">No records</td></tr>')+'</tbody></table></div></div>';
 }
 
-async function upsertP(p){ await sb.from("projects").upsert(p); }
-async function upsertI(i){ await sb.from("influencers").upsert(i); }
-async function upsertC(c){ await sb.from("campaigns").upsert(c); }
-async function deleteRec(table,id){ await sb.from(table).delete().eq("id",id); }'''
+var iq="",ifp="";
+function rI(){
+  var fl=influencers.filter(function(i){
+    var q=iq.toLowerCase();
+    return(!q||(i.name+i.platform+( i.handle||"")+( i.niche||"")).toLowerCase().includes(q))&&(!ifp||i.platform===ifp);
+  });
+  var sp='<option value="">All Platforms</option>'+PLATS.map(function(p){return'<option value="'+p+'"'+(ifp===p?" selected":"")+'>'+p+'</option>';}).join("");
+  var PC={"X / Twitter":"#2563eb","YouTube":"#dc2626","Telegram":"#2563eb","Instagram":"#db2777","TikTok":"#7c3aed","Discord":"#5865f2","Other":"#6b7280"};
+  var rows=fl.length?fl.map(function(inf,i){
+    var pc=PC[inf.platform]||"#6b7280";
+    var cc=campaigns.filter(function(c){return c.infId===inf.id;}).length;
+    return'<tr onclick="oIM(\''+inf.id+'\')">'
+      +'<td style="color:#9ca3af;font-size:10px">'+(i+1)+'</td>'
+      +'<td><div class="pn">'+inf.name+'</div><div class="ps">'+( inf.handle||"--")+'</div></td>'
+      +'<td><span class="tag" style="background:'+pc+'18;color:'+pc+';border:1px solid '+pc+'30">'+inf.platform+'</span></td>'
+      +'<td style="font-size:11px;color:#6b7280">'+( inf.followers||"--")+'</td>'
+      +'<td style="font-size:11px;color:#6b7280">'+( inf.niche||"--")+'</td>'
+      +'<td style="font-size:11px">'+( (inf.rateMin||inf.rateMax)?mn(inf.rateMin)+" - "+mn(inf.rateMax):"--")+'</td>'
+      +'<td style="color:'+(cc>0?"#059669":"#9ca3af")+';font-size:11px">'+cc+'</td>'
+    +'</tr>';
+  }).join(""):'<tr><td colspan="7" class="empty">No KOLs yet. Click "+ KOL".</td></tr>';
+  $f("view-inf").innerHTML='<div class="card"><div class="toolbar">'
+    +'<input class="srch" placeholder="Name, platform, niche..." value="'+iq+'" oninput="iq=this.value;rI()">'
+    +'<select class="fsel" onchange="ifp=this.value;rI()">'+sp+'</select>'
+    +'<button class="btn btnsm" onclick="impC(\'inf\')">Import CSV</button>'
+    +'<span class="cnt">'+fl.length+'</span></div>'
+    +'<div style="overflow-x:auto"><table><thead><tr><th>#</th><th>KOL</th><th>Platform</th><th>Followers</th><th>Niche</th><th>Rate Range</th><th>Camps</th></tr></thead>'
+    +'<tbody>'+rows+'</tbody></table></div></div>';
+}
 
-html = html.replace(old_storage, new_storage)
+var cq="",cfs="";
+function rC(){
+  var fl=campaigns.filter(function(c){
+    var q=cq.toLowerCase();
+    return(!q||(pnm(c.projId)+inm(c.infId)+( c.pkg||"")).toLowerCase().includes(q))&&(!cfs||c.st===cfs);
+  });
+  var ss='<option value="">All Statuses</option>'+ST_C.map(function(s){return'<option value="'+s.v+'"'+(cfs===s.v?" selected":"")+'>'+s.l+'</option>';}).join("");
+  var rows=fl.length?fl.map(function(c,i){
+    return'<tr onclick="oCM(\''+c.id+'\')">'
+      +'<td style="color:#9ca3af;font-size:10px">'+(i+1)+'</td>'
+      +'<td><div class="pn">'+pnm(c.projId)+'</div></td>'
+      +'<td><div style="font-size:12px;font-weight:500">'+inm(c.infId)+'</div><div class="ps">'+ipl(c.infId)+'</div></td>'
+      +'<td style="font-size:11px;color:#6b7280">'+( c.pkg||"--")+'</td>'
+      +'<td style="font-size:11px">'+( c.rev?mn(c.rev):'<span style="color:#9ca3af">--</span>')+'</td>'
+      +'<td style="font-size:11px">'+( c.cost?mn(c.cost):'<span style="color:#9ca3af">--</span>')+'</td>'
+      +'<td>'+ph(c.rev,c.cost)+'</td>'
+      +'<td>'+bdg(c.st,ST_C)+'</td>'
+    +'</tr>';
+  }).join(""):'<tr><td colspan="8" class="empty">No campaigns yet.</td></tr>';
+  var tR=fl.reduce(function(s,c){return s+(parseFloat(c.rev)||0);},0);
+  var tC=fl.reduce(function(s,c){return s+(parseFloat(c.cost)||0);},0);
+  var sb=fl.length?'<div class="sb"><span style="color:#6b7280">Revenue: <strong style="color:#059669">'+mn(tR)+'</strong></span><span style="color:#6b7280">Cost: <strong style="color:#d97706">'+mn(tC)+'</strong></span><span style="color:#6b7280">Net: <strong style="color:'+(tR-tC>=0?"#059669":"#dc2626")+'">'+mn(tR-tC)+'</strong></span></div>':'';
+  $f("view-camp").innerHTML='<div class="card"><div class="toolbar">'
+    +'<input class="srch" placeholder="Project, influencer..." value="'+cq+'" oninput="cq=this.value;rC()">'
+    +'<select class="fsel" onchange="cfs=this.value;rC()">'+ss+'</select>'
+    +'<span class="cnt">'+fl.length+'</span></div>'
+    +'<div style="overflow-x:auto"><table><thead><tr><th>#</th><th>Project</th><th>KOL</th><th>Package</th><th>Revenue</th><th>Cost</th><th>Profit</th><th>Status</th></tr></thead>'
+    +'<tbody>'+rows+'</tbody></table></div>'+sb+'</div>';
+}
 
-# Update saveP to use Supabase
-html = html.replace(
-  'saveAll();closeM();rP();if(CUR==="dash")rD();toast("Saved");\n}\n\nfunction oIM',
-  'upsertP(obj).then(function(){loadAll().then(function(){closeM();rP();if(CUR==="dash")rD();toast("Saved");});});\n}\n\nfunction oIM'
-)
+function rF(){
+  $f("addBtn").style.display="none";
+  var c=campaigns;
+  var tR=c.reduce(function(s,x){return s+(parseFloat(x.rev)||0);},0);
+  var tC=c.reduce(function(s,x){return s+(parseFloat(x.cost)||0);},0);
+  var tP=tR-tC;
+  var mg=tR>0?((tP/tR)*100).toFixed(1)+"%":"--";
+  var cards=[
+    {l:"Total Revenue",v:tR===0?"--":"$"+tR.toLocaleString(),c:"#059669",s:"All invoiced"},
+    {l:"Total Cost",v:tC===0?"--":"$"+tC.toLocaleString(),c:"#d97706",s:"KOL payments"},
+    {l:"Net Profit",v:(tR===0&&tC===0)?"--":((tP>=0?"+":"-")+"$"+Math.abs(tP).toLocaleString()),c:tP>=0?"#059669":"#dc2626",s:"Revenue - Cost"},
+    {l:"Profit Margin",v:mg,c:tP>=0?"#059669":"#dc2626",s:"Net / Revenue"},
+    {l:"Total Campaigns",v:c.length,c:"#111",s:"All time"},
+    {l:"Completed",v:c.filter(function(x){return x.st==="Completed";}).length,c:"#059669",s:"Done"}
+  ].map(function(m){return'<div class="mc"><div class="ml">'+m.l+'</div><div class="mv" style="color:'+m.c+'">'+m.v+'</div><div class="ms">'+m.s+'</div></div>';}).join("");
+  var bp={};
+  c.forEach(function(x){var pn=pnm(x.projId);if(!bp[pn])bp[pn]={r:0,c:0,n:0};bp[pn].r+=parseFloat(x.rev)||0;bp[pn].c+=parseFloat(x.cost)||0;bp[pn].n++;});
+  var pr=Object.keys(bp).length?Object.keys(bp).map(function(pn){
+    var b=bp[pn],p=b.r-b.c;
+    return'<tr><td>'+pn+'</td><td style="color:#059669">'+mn(b.r)+'</td><td style="color:#d97706">'+mn(b.c)+'</td><td style="color:'+(p>=0?"#059669":"#dc2626")+'">'+(p>=0?"+":"")+mn(p)+'</td><td style="color:#6b7280">'+b.n+'</td></tr>';
+  }).join(""):'<tr><td colspan="5" class="empty">No campaign data yet</td></tr>';
+  $f("view-fin").innerHTML='<div class="sh">Financial Overview</div><div class="mg">'+cards+'</div><div class="sh">Profit by Project</div><div class="card"><div style="overflow-x:auto"><table><thead><tr><th>Project</th><th>Revenue</th><th>Cost</th><th>Profit</th><th>Campaigns</th></tr></thead><tbody>'+pr+'</tbody></table></div></div>';
+}
 
-# Update saveI
-html = html.replace(
-  'saveAll();closeM();rI();if(CUR==="dash")rD();toast("Saved");\n}\n\nfunction oCM',
-  'upsertI(obj).then(function(){loadAll().then(function(){closeM();rI();if(CUR==="dash")rD();toast("Saved");});});\n}\n\nfunction oCM'
-)
+function rO(){
+  $f("addBtn").style.display="none";
+  var tmpl=[
+    {t:"Pre-TGE / Airdrop - First Contact",d:"Before token launch",b:function(pn){return"Hi [Name],\n\nI came across "+pn+" and was genuinely impressed by what you are building.\n\nAt Northbridge, we work selectively with a small number of Web3 projects at a time, connecting them with creators who actually care about what they promote. We don't do mass outreach or volume-based campaigns.\n\nI think there is a real fit here. Would you be open to a quick 20-minute call this week?\n\nBest,\n[Your name]\nNorthbridge Web3 Media\ncalendly.com/northbridgeweb3media";}},
+    {t:"Funded Infrastructure Project",d:"For well-funded projects",b:function(pn){return"Hi [Name],\n\nCongratulations on the recent raise. "+pn+" is clearly building something with real staying power.\n\nI run Northbridge Web3 Media, a boutique influencer partnership firm. We work with a handful of projects at a time, and only introduce them to creators who would genuinely advocate for the product.\n\nWould a brief call make sense?\n\nBest,\n[Your name]";}},
+    {t:"KOL Partnership Offer",d:"To pitch an influencer",b:function(){return"Hi [Creator Name],\n\nI have been following your content and the way you cover Web3 is exactly what the space needs.\n\nI am working with a project I think aligns with your audience: [Project Name].\n\nThis is not a typical paid shill. We are looking for a real partnership - content you would actually stand behind.\n\nWould you be open to a quick conversation?\n\nBest,\n[Your name]\nNorthbridge Web3 Media";}},
+    {t:"Follow-up Email",d:"3-5 days after no response",b:function(pn){return"Hi [Name],\n\nJust following up on my note about "+pn+".\n\nIf the timing is not right or it is not a fit, no worries at all.\n\nIf you are curious, happy to share a short deck or jump on a 15-minute call.\n\nBest,\n[Your name]";}},
+    {t:"Post-Deal Campaign Brief",d:"After closing with a KOL",b:function(){return"Hi [Creator Name],\n\nGreat to have you on board.\n\nCampaign brief:\n- Project: [Project Name]\n- Deliverables: [e.g. 2 X posts + 1 thread]\n- Key messages: [talking points]\n- Timeline: Post 1 by [date], Post 2 by [date]\n- Payment: $[amount] upon completion\n\nPlease share drafts before publishing.\n\nBest,\n[Your name]";}}
+  ];
+  var popts='<option value="">Select project...</option>'+projects.map(function(p){return'<option value="'+p.name+'">'+p.name+'</option>';}).join("");
+  var cards=tmpl.map(function(t,i){
+    return'<div class="card" style="margin-bottom:10px">'
+      +'<div style="padding:10px 13px;border-bottom:1px solid #e5e7eb;display:flex;align-items:center;justify-content:space-between;background:#f9fafb">'
+        +'<div><div style="font-size:12px;font-weight:600;color:#111">'+t.t+'</div><div style="font-size:11px;color:#9ca3af;margin-top:1px">'+t.d+'</div></div>'
+        +'<button class="btn btnp btnsm" onclick="cpT('+i+')">Copy</button>'
+      +'</div>'
+      +'<div style="padding:12px 13px">'
+        +'<select class="fsel" id="ps'+i+'" onchange="udT('+i+')" style="width:100%;margin-bottom:8px">'+popts+'</select>'
+        +'<div class="tb" id="tb'+i+'">'+t.b("{{PROJECT}}").replace(/\n/g,"<br>")+'</div>'
+      +'</div></div>';
+  });
+  $f("view-out").innerHTML='<div style="margin-bottom:10px;padding:10px 13px;background:#fff;border:1px solid #e5e7eb;border-radius:10px;font-size:12px;color:#374151">Select a project to auto-fill, then click <strong>Copy</strong>.</div>'+cards.join("");
+  window._t=tmpl;
+}
+window.udT=function(i){var s=$f("ps"+i);var pn=s.value||"{{PROJECT}}";$f("tb"+i).innerHTML=window._t[i].b(pn).replace(/\n/g,"<br>");};
+window.cpT=function(i){var s=$f("ps"+i);var pn=s.value||"{{PROJECT}}";var txt=window._t[i].b(pn);navigator.clipboard.writeText(txt).then(function(){toast("Copied!");}).catch(function(){var ta=document.createElement("textarea");ta.value=txt;document.body.appendChild(ta);ta.select();document.execCommand("copy");document.body.removeChild(ta);toast("Copied!");});};
 
-# Update saveC
-html = html.replace(
-  'saveAll();closeM();rC();if(CUR==="dash")rD();toast("Saved");\n}\n\nfunction delIt',
-  'upsertC(obj).then(function(){loadAll().then(function(){closeM();rC();if(CUR==="dash")rD();toast("Saved");});});\n}\n\nfunction delIt'
-)
+function fi(l,k,v,t,o){
+  var id="f_"+k,inp="";
+  if(t==="sel"){var opt=(o||[]).map(function(x){return'<option value="'+x+'"'+(v===x?" selected":"")+'>'+x+'</option>';}).join("");inp='<select id="'+id+'" class="fi" style="appearance:auto;cursor:pointer">'+opt+'</select>';}
+  else if(t==="ta")inp='<textarea id="'+id+'" class="fi fta" placeholder="'+l+'">'+( v||"")+'</textarea>';
+  else inp='<input id="'+id+'" class="fi'+(t==="num"?" fnum":"")+'" value="'+(v||"")+'" placeholder="'+l+'"'+(t==="num"?' type="number" min="0"':"")+' >';
+  return'<div class="fg"><div class="fl">'+l+'</div>'+inp+'</div>';
+}
+function fsc(t){return'<div class="fs">'+t+'</div>';}
+function gv(k,d){var e=$f("f_"+k);return e?e.value:(d||"");}
 
-# Update delIt
-html = html.replace(
-  '''  if(type==="proj")projects=projects.filter(function(x){return x.id!==id;});
+function oPM(id){
+  var b={id:"",name:"",cat:"Other",tw:"",web:"",fund:"",stage:"",inv:"",chain:"",pri:"Medium",ld:"",ceo:"",ceoC:"",mk:"",mkC:"",st:"",notes:"",ilgili:"",rem:""};
+  var p=id?(projects.find(function(x){return x.id===id;})||b):b;
+  EID=id||null;
+  $f("mtitle").textContent=id?(p.name||"Project"):"New Project";
+  $f("mbody").innerHTML='<div class="f2">'+fsc("Project Info")
+    +'<div>'+fi("Name","name",p.name,"text")+'</div>'
+    +'<div>'+fi("Category","cat",p.cat,"sel",CATS)+'</div>'
+    +'<div>'+fi("Twitter / X","tw",p.tw,"text")+'</div>'
+    +'<div>'+fi("Website","web",p.web,"text")+'</div>'
+    +'<div>'+fi("Funding","fund",p.fund,"text")+'</div>'
+    +'<div>'+fi("Stage","stage",p.stage,"text")+'</div>'
+    +'<div class="ff">'+fi("Investors","inv",p.inv,"text")+'</div>'
+    +'<div>'+fi("Blockchain","chain",p.chain,"text")+'</div>'
+    +'<div>'+fi("Priority","pri",p.pri,"sel",PRIS)+'</div>'
+    +'<div>'+fi("Launch Date","ld",p.ld,"text")+'</div>'
+    +fsc("Contact People")
+    +'<div>'+fi("CEO Name","ceo",p.ceo,"text")+'</div>'
+    +'<div>'+fi("CEO Contact","ceoC",p.ceoC,"text")+'</div>'
+    +'<div>'+fi("Marketing Lead","mk",p.mk,"text")+'</div>'
+    +'<div>'+fi("Marketing Contact","mkC",p.mkC,"text")+'</div>'
+    +'<div class="ff">'+fi("Assigned To","ilgili",p.ilgili,"text")+'</div>'
+    +fsc("Outreach Tracking")
+    +'<div>'+fi("Status","st",p.st,"sel",ST_P.map(function(s){return s.v;}))+'</div>'
+    +'<div>'+fi("Reminder (YYYY-MM-DD)","rem",p.rem,"text")+'</div>'
+    +'<div class="ff">'+fi("Notes","notes",p.notes,"ta")+'</div>'
+    +'</div>';
+  $f("mfoot").innerHTML=(id?'<button class="btn btnsm btnd" onclick="delIt(\'proj\',\''+id+'\')">Delete</button>':'')+'<button class="btn btnsm" onclick="closeM()">Cancel</button><button class="btn btnp btnsm" onclick="sP()">Save</button>';
+  $f("modal").classList.add("open");
+}
+function sP(){
+  var keys=["name","cat","tw","web","fund","stage","inv","chain","pri","ld","ceo","ceoC","mk","mkC","ilgili","st","notes","rem"];
+  var obj={};keys.forEach(function(k){obj[k]=gv(k);});
+  if(EID){var p=projects.find(function(x){return x.id===EID;});if(p)Object.assign(p,obj);}
+  else{obj.id="p"+Date.now();projects.push(obj);}
+  saveAll();closeM();rP();if(CUR==="dash")rD();toast("Saved");
+}
+
+function oIM(id){
+  var b={id:"",name:"",platform:"X / Twitter",handle:"",followers:"",niche:"",contact:"",score:"",rateMin:"",rateMax:"",notes:""};
+  var inf=id?(influencers.find(function(x){return x.id===id;})||b):b;
+  EID=id||null;
+  $f("mtitle").textContent=id?(inf.name||"KOL"):"New KOL";
+  $f("mbody").innerHTML='<div class="f2">'+fsc("KOL Info")
+    +'<div>'+fi("Name / Channel","name",inf.name,"text")+'</div>'
+    +'<div>'+fi("Platform","platform",inf.platform,"sel",PLATS)+'</div>'
+    +'<div>'+fi("Handle / URL","handle",inf.handle,"text")+'</div>'
+    +'<div>'+fi("Followers","followers",inf.followers,"text")+'</div>'
+    +'<div>'+fi("Niche","niche",inf.niche,"text")+'</div>'
+    +'<div>'+fi("Contact","contact",inf.contact,"text")+'</div>'
+    +fsc("Rates & Score")
+    +'<div>'+fi("Trust Score (1-10)","score",inf.score,"num")+'</div><div></div>'
+    +'<div>'+fi("Min Rate ($)","rateMin",inf.rateMin,"num")+'</div>'
+    +'<div>'+fi("Max Rate ($)","rateMax",inf.rateMax,"num")+'</div>'
+    +'<div class="ff">'+fi("Notes","notes",inf.notes,"ta")+'</div>'
+    +'</div>';
+  $f("mfoot").innerHTML=(id?'<button class="btn btnsm btnd" onclick="delIt(\'inf\',\''+id+'\')">Delete</button>':'')+'<button class="btn btnsm" onclick="closeM()">Cancel</button><button class="btn btnp btnsm" onclick="sI()">Save</button>';
+  $f("modal").classList.add("open");
+}
+function sI(){
+  var keys=["name","platform","handle","followers","niche","contact","score","rateMin","rateMax","notes"];
+  var obj={};keys.forEach(function(k){obj[k]=gv(k);});
+  if(EID){var inf=influencers.find(function(x){return x.id===EID;});if(inf)Object.assign(inf,obj);}
+  else{obj.id="i"+Date.now();influencers.push(obj);}
+  saveAll();closeM();rI();if(CUR==="dash")rD();toast("Saved");
+}
+
+function oCM(id){
+  var b={id:"",projId:"",infId:"",pkg:"",postCnt:"",rev:"",cost:"",st:"Proposal",links:"",notes:"",eLikes:"",eRT:"",eViews:"",eCom:""};
+  var c=id?(campaigns.find(function(x){return x.id===id;})||b):b;
+  EID=id||null;
+  var po=projects.map(function(p){return'<option value="'+p.id+'"'+(c.projId===p.id?" selected":"")+'>'+p.name+'</option>';}).join("");
+  var io=influencers.length?influencers.map(function(i){return'<option value="'+i.id+'"'+(c.infId===i.id?" selected":"")+'>'+i.name+' ('+i.platform+')'+'</option>';}).join(""):'<option value="">Add KOLs first</option>';
+  var so=ST_C.map(function(s){return'<option value="'+s.v+'"'+(c.st===s.v?" selected":"")+'>'+s.l+'</option>';}).join("");
+  $f("mtitle").textContent=id?"Edit Campaign":"New Campaign";
+  $f("mbody").innerHTML='<div class="f2">'+fsc("Match")
+    +'<div><div class="fg"><div class="fl">Project</div><select id="f_projId" class="fi" style="appearance:auto"><option value="">Select...</option>'+po+'</select></div></div>'
+    +'<div><div class="fg"><div class="fl">KOL</div><select id="f_infId" class="fi" style="appearance:auto"><option value="">Select...</option>'+io+'</select></div></div>'
+    +fsc("Package")
+    +'<div class="ff">'+fi("Package Description","pkg",c.pkg,"text")+'</div>'
+    +'<div>'+fi("Post Count","postCnt",c.postCnt,"num")+'</div>'
+    +'<div><div class="fg"><div class="fl">Status</div><select id="f_st" class="fi" style="appearance:auto">'+so+'</select></div></div>'
+    +fsc("Financial")
+    +'<div>'+fi("Invoiced to Project ($)","rev",c.rev,"num")+'</div>'
+    +'<div>'+fi("Paid to KOL ($)","cost",c.cost,"num")+'</div>'
+    +fsc("Engagement Report")
+    +'<div>'+fi("Likes","eLikes",c.eLikes,"num")+'</div>'
+    +'<div>'+fi("Retweets / Shares","eRT",c.eRT,"num")+'</div>'
+    +'<div>'+fi("Views / Impressions","eViews",c.eViews,"num")+'</div>'
+    +'<div>'+fi("Comments / Replies","eCom",c.eCom,"num")+'</div>'
+    +fsc("Posts & Notes")
+    +'<div class="ff">'+fi("Post Links (one per line)","links",c.links,"ta")+'</div>'
+    +'<div class="ff">'+fi("Notes","notes",c.notes,"ta")+'</div>'
+    +'</div>';
+  $f("mfoot").innerHTML=(id?'<button class="btn btnsm btnd" onclick="delIt(\'camp\',\''+id+'\')">Delete</button>':'')+'<button class="btn btnsm" onclick="closeM()">Cancel</button><button class="btn btnp btnsm" onclick="sC()">Save</button>';
+  $f("modal").classList.add("open");
+}
+function sC(){
+  var keys=["projId","infId","pkg","postCnt","rev","cost","st","links","notes","eLikes","eRT","eViews","eCom"];
+  var obj={};
+  keys.forEach(function(k){
+    var el=$f("f_"+k);
+    obj[k]=el?el.value:"";
+  });
+  if(!obj.projId||!obj.infId){toast("Select project and KOL");return;}
+  if(EID){var c=campaigns.find(function(x){return x.id===EID;});if(c)Object.assign(c,obj);}
+  else{obj.id="c"+Date.now();campaigns.push(obj);}
+  saveAll();closeM();rC();if(CUR==="dash")rD();toast("Saved");
+}
+
+function delIt(type,id){
+  if(!confirm("Delete this record?"))return;
+  if(type==="proj")projects=projects.filter(function(x){return x.id!==id;});
   else if(type==="inf")influencers=influencers.filter(function(x){return x.id!==id;});
   else campaigns=campaigns.filter(function(x){return x.id!==id;});
   saveAll();closeM();
   if(type==="proj")rP();else if(type==="inf")rI();else rC();
-  if(CUR==="dash")rD();toast("Deleted");''',
-  '''  var table=type==="proj"?"projects":type==="inf"?"influencers":"campaigns";
-  deleteRec(table,id).then(function(){loadAll().then(function(){closeM();
-  if(type==="proj")rP();else if(type==="inf")rI();else rC();
-  if(CUR==="dash")rD();toast("Deleted");});});'''
-)
+  if(CUR==="dash")rD();toast("Deleted");
+}
 
-# Update checkAuth to call loadAll instead of rD
-html = html.replace(
-  '''function checkAuth(){
+function closeM(){$f("modal").classList.remove("open");EID=null;}
+
+function impC(type){
+  var inp=document.createElement("input");
+  inp.type="file";inp.accept=".csv";
+  inp.onchange=function(e){
+    var file=e.target.files[0];if(!file)return;
+    var reader=new FileReader();
+    reader.onload=function(ev){
+      var lines=ev.target.result.split("\n").filter(function(l){return l.trim();});
+      if(lines.length<2){toast("Empty file");return;}
+      var added=0;
+      for(var i=1;i<lines.length;i++){
+        var cols=lines[i].split(",").map(function(c){return c.trim().replace(/^"|"$/g,"");});
+        if(!cols[0])continue;
+        if(type==="proj"){
+          projects.push({id:"p"+Date.now()+i,name:cols[0]||"",cat:cols[1]||"Other",tw:cols[2]||"",web:cols[3]||"",fund:cols[4]||"",stage:cols[5]||"",inv:cols[6]||"",chain:cols[7]||"",pri:cols[8]||"Medium",ld:cols[9]||"",ceo:cols[10]||"",ceoC:cols[11]||"",mk:cols[12]||"",mkC:cols[13]||"",notes:cols[14]||"",st:"",ilgili:"",rem:""});
+        }else{
+          influencers.push({id:"i"+Date.now()+i,name:cols[0]||"",platform:cols[1]||"X / Twitter",handle:cols[2]||"",followers:cols[3]||"",niche:cols[4]||"",contact:cols[5]||"",rateMin:cols[6]||"",rateMax:cols[7]||"",score:cols[8]||"",notes:cols[9]||""});
+        }
+        added++;
+      }
+      saveAll();
+      if(type==="proj")rP();else rI();
+      toast(added+" records imported!");
+    };
+    reader.readAsText(file,"UTF-8");
+  };
+  inp.click();
+}
+
+function expCSV(){
+  var lines=["TYPE\tDATA"];
+  projects.forEach(function(p){lines.push("PROJECT\t"+JSON.stringify(p));});
+  influencers.forEach(function(i){lines.push("KOL\t"+JSON.stringify(i));});
+  campaigns.forEach(function(c){lines.push("CAMPAIGN\t"+JSON.stringify(c));});
+  var blob=new Blob(["\uFEFF"+lines.join("\n")],{type:"text/csv;charset=utf-8"});
+  var a=document.createElement("a");a.href=URL.createObjectURL(blob);
+  a.download="northbridge_backup_"+new Date().toISOString().slice(0,10)+".csv";a.click();
+  toast("Backup downloaded");
+}
+
+// Auth
+function checkAuth(){
   if(sessionStorage.getItem(AK)==="1"){
     $f("gate").style.display="none";
     $f("app").style.display="flex";
     rD();
   }
-}''',
-  '''function checkAuth(){
-  if(sessionStorage.getItem(AK)==="1"){
+}
+
+function doLogin(){
+  var v=($f("pwd").value||"").trim();
+  if(v===PASS){
+    sessionStorage.setItem(AK,"1");
     $f("gate").style.display="none";
     $f("app").style.display="flex";
-    $f("view-dash").innerHTML=\'<div style="text-align:center;padding:40px;color:#6b7280;font-size:13px">Loading...</div>\';
-    loadAll();
+    rD();
+  }else{
+    $f("gerr").style.display="block";
   }
-}'''
-)
+}
 
-# Update doLogin to call loadAll
-html = html.replace(
-  '''    $f("gate").style.display="none";
-    $f("app").style.display="flex";
-    rD();''',
-  '''    $f("gate").style.display="none";
-    $f("app").style.display="flex";
-    $f("view-dash").innerHTML=\'<div style="text-align:center;padding:40px;color:#6b7280;font-size:13px">Loading...</div>\';
-    loadAll();'''
-)
+// Event listeners
+$f("loginBtn").addEventListener("click",doLogin);
+$f("pwd").addEventListener("keydown",function(e){if(e.key==="Enter")doLogin();});
+$f("expBtn").addEventListener("click",expCSV);
+$f("outBtn").addEventListener("click",function(){sessionStorage.removeItem(AK);location.reload();});
+$f("closeBtn").addEventListener("click",closeM);
+$f("addBtn").addEventListener("click",function(){
+  if(CUR==="proj")oPM(null);
+  else if(CUR==="inf")oIM(null);
+  else if(CUR==="camp")oCM(null);
+});
 
-with open('/mnt/user-data/outputs/index.html', 'w', encoding='utf-8') as f:
-    f.write(html)
+["dash","proj","inf","camp","fin","out"].forEach(function(t){
+  var el=$f("tab-"+t);
+  if(el)el.addEventListener("click",function(){go(t);});
+});
 
-print("Done:", len(html), "bytes")
+checkAuth();
+</script>
+<script>if('serviceWorker' in navigator){navigator.serviceWorker.register('/northbridge-crm/sw.js');}</script>
+</body>
+</html>
 PYEOF
+python3 -c "
+html = open('/home/claude/crm_v3.html').read()
+print('Size:', len(html), 'bytes')
+# basic validation
+assert '<!DOCTYPE html>' in html
+assert 'var projects' in html
+assert 'var influencers' in html
+assert 'var campaigns' in html
+assert 'function rD()' in html
+assert 'PASS' in html
+print('Validation OK')
+"
