@@ -1,5 +1,3 @@
-bash
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -608,16 +606,4 @@ checkAuth();
 </script>
 </body>
 </html>
-PYEOF
-python3 -c "
-html = open('/home/claude/crm_v3.html').read()
-print('Size:', len(html), 'bytes')
-# basic validation
-assert '<!DOCTYPE html>' in html
-assert 'var projects' in html
-assert 'var influencers' in html
-assert 'var campaigns' in html
-assert 'function rD()' in html
-assert 'PASS' in html
-print('Validation OK')
-"
+
