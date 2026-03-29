@@ -7,6 +7,7 @@ cat << 'PYEOF' > /home/claude/crm_v3.html
 <meta name="theme-color" content="#1d4ed8">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <head>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Northbridge CRM</title>
@@ -625,7 +626,68 @@ async function upsertI(i){await sb.from("influencers").upsert(i);}
 async function upsertC(c){await sb.from("campaigns").upsert(c);}
 async function deleteRec(t,id){await sb.from(t).delete().eq("id",id);}
 checkAuth();
-</script>
+var SURL="https://wwntkovzcjoifosceats.supabase.co";
+var SKEY="sb_publishable_DvoYwjHFA-G8pYWbzP5GQA_M2S-tQz2";
+var sb=supabase.createClient(SURL,SKEY);
+async function loadAll(){
+  var pr=await sb.from("projects").select("*");
+  var ir=await sb.from("influencers").select("*");
+  var cr=await sb.from("campaigns").select("*");
+  if(pr.data&&pr.data.length>0){projects=pr.data;}
+  else{projects=JSON.parse(JSON.stringify(SEED));for(var i=0;i<projects.length;i++){await sb.from("projects").upsert(projects[i]);}}
+  influencers=ir.data||[];campaigns=cr.data||[];rD();
+}
+async function upsertP(p){await sb.from("projects").upsert(p);}
+async function upsertI(i){await sb.from("influencers").upsert(i);}
+async function upsertC(c){await sb.from("campaigns").upsert(c);}
+async function deleteRec(t,id){await sb.from(t).delete().eq("id",id);}
+function sP(){
+  var keys=["name","cat","tw","web","fund","stage","inv","chain","pri","ld","ceo","ceoC","mk","mkC","ilgili","st","notes","rem"];
+  var obj={};keys.forEach(function(k){obj[k]=gv(k);});
+  if(EID){var p=projects.find(function(x){return x.id===EID;});if(p)Object.assign(p,obj);}
+  else{obj.id="p"+Date.now();projects.push(obj);}
+  upsertP(obj).then(function(){loadAll().then(function(){closeM();rP();toast("Saved");});});
+}
+function sI(){
+  var keys=["name","platform","handle","followers","niche","contact","score","rateMin","rateMax","notes"];
+  var obj={};keys.forEach(function(k){obj[k]=gv(k);});
+  if(EID){var inf=influencers.find(function(x){return x.id===EID;});if(inf)Object.assign(inf,obj);}
+  else{obj.id="i"+Date.now();influencers.push(obj);}
+  upsertI(obj).then(function(){loadAll().then(function(){closeM();rI();toast("Saved");});});
+}
+function sC(){
+  var keys=["projId","infId","pkg","postCnt","rev","cost","st","links","notes","eLikes","eRT","eViews","eCom"];
+  var obj={};keys.forEach(function(k){var el=$f("f_"+k);obj[k]=el?el.value:"";});
+  if(!obj.projId||!obj.infId){toast("Select project and KOL");return;}
+  if(EID){var c=campaigns.find(function(x){return x.id===EID;});if(c)Object.assign(c,obj);}
+  else{obj.id="c"+Date.now();campaigns.push(obj);}
+  upsertC(obj).then(function(){loadAll().then(function(){closeM();rC();toast("Saved");});});
+}
+function delIt(type,id){
+  if(!confirm("Delete this record?"))return;
+  var table=type==="proj"?"projects":type==="inf"?"influencers":"campaigns";
+  deleteRec(table,id).then(function(){loadAll().then(function(){closeM();
+  if(type==="proj")rP();else if(type==="inf")rI();else rC();
+  if(CUR==="dash")rD();toast("Deleted");});});
+}
+function checkAuth(){
+  if(sessionStorage.getItem(AK)==="1"){
+    $f("gate").style.display="none";
+    $f("app").style.display="flex";
+    loadAll();
+  }
+}
+function doLogin(){
+  var v=($f("pwd").value||"").trim();
+  if(v===PASS){
+    sessionStorage.setItem(AK,"1");
+    $f("gate").style.display="none";
+    $f("app").style.display="flex";
+    loadAll();
+  }else{
+    $f("gerr").style.display="block";
+  }
+}</script>
 <script>if('serviceWorker' in navigator){navigator.serviceWorker.register('/northbridge-crm/sw.js');}</script>
 </body>
 </html>
